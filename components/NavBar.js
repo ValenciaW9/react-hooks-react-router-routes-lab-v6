@@ -1,14 +1,15 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
-const NavBar = () => {
-  return (
-    <nav>
-      <NavLink exact to="/">Home</NavLink>
-      <NavLink to="/directors">Directors</NavLink>
-      <NavLink to="/actors">Actors</NavLink>
-    </nav>
+test('wraps content in a div with "navbar" class', () => {
+  render(
+    <BrowserRouter>
+      <NavBar />
+    </BrowserRouter>
   );
-};
 
-export default NavBar;
+  const navElement = screen.getByRole('navigation');
+  expect(navElement).toBeInTheDocument();
+});

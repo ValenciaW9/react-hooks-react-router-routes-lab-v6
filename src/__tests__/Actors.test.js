@@ -10,9 +10,9 @@ const history = createMemoryHistory();
 
 test("renders 'Home Page' inside of an <h1 />", () => {
   render(
-    <RouterProvider history={history}>
-      <App />
-    </RouterProvider>
+    React.createElement(RouterProvider, { history: history },
+      React.createElement(App)
+    )
   );
   const h1 = screen.queryByText(/Home Page/);
   expect(h1).toBeInTheDocument();
@@ -21,9 +21,9 @@ test("renders 'Home Page' inside of an <h1 />", () => {
 
 test("Displays a list of movie titles", async () => {
   render(
-    <RouterProvider history={history}>
-      <App />
-    </RouterProvider>
+    React.createElement(RouterProvider, { history: history },
+      React.createElement(App)
+    )
   );
   const titleList = await screen.findAllByRole("heading", { level: 2 });
   expect(titleList.length).toBeGreaterThan(2);
@@ -33,9 +33,9 @@ test("Displays a list of movie titles", async () => {
 
 test("Displays links for each associated movie", async () => {
   render(
-    <RouterProvider history={history}>
-      <App />
-    </RouterProvider>
+    React.createElement(RouterProvider, { history: history },
+      React.createElement(App)
+    )
   );
   const linkList = await screen.findAllByText(/View Info/);
   expect(linkList.length).toBeGreaterThan(2);
@@ -44,9 +44,9 @@ test("Displays links for each associated movie", async () => {
 
 test("renders the <NavBar /> component", () => {
   render(
-    <RouterProvider history={history}>
-      <NavBar />
-    </RouterProvider>
+    React.createElement(RouterProvider, { history: history },
+      React.createElement(NavBar)
+    )
   );
   expect(screen.getByRole("navigation")).toBeInTheDocument();
 });

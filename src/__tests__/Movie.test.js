@@ -13,7 +13,7 @@ test("renders without any errors", () => {
   const errorSpy = jest.spyOn(global.console, "error");
 
   render(
-    <RouterProvider router={history}>
+    <RouterProvider history={history}>
       <App />
     </RouterProvider>
   );
@@ -25,7 +25,7 @@ test("renders without any errors", () => {
 
 test("renders movie's title in an h1", async () => {
   render(
-    <RouterProvider router={history}>
+    <RouterProvider history={history}>
       <App />
     </RouterProvider>
   );
@@ -36,7 +36,7 @@ test("renders movie's title in an h1", async () => {
 
 test("renders movie's time within a p tag", async () => {
   render(
-    <RouterProvider router={history}>
+    <RouterProvider history={history}>
       <App />
     </RouterProvider>
   );
@@ -47,7 +47,7 @@ test("renders movie's time within a p tag", async () => {
 
 test("renders a span for each genre", async () => {
   render(
-    <RouterProvider router={history}>
+    <RouterProvider history={history}>
       <App />
     </RouterProvider>
   );
@@ -61,7 +61,7 @@ test("renders a span for each genre", async () => {
 
 test("renders the <NavBar /> component", () => {
   render(
-    <RouterProvider router={history}>
+    <RouterProvider history={history}>
       <App />
     </RouterProvider>
   );

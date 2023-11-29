@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Pages() {
+const Pages = () => {
   return (
     <h1>
       <NavLink exact to="/">Home Page</NavLink>
@@ -12,3 +12,5 @@ export default function Pages() {
     </h1>
   );
 }
+
+export default Pages;
