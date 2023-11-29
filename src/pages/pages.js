@@ -1,16 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const routes = () => {
+export default function Pages() {
   return (
-    <div>
-      <NavLink exact to="/">Home</NavLink>
+    <h1>
+      <NavLink exact to="/">Home Page</NavLink>
       <NavLink to="/directors">Directors</NavLink>
       <NavLink to="/actors">Actors</NavLink>
       <NavLink to="/moviecard">MovieCard</NavLink>
       <NavLink to="/contact">Contact</NavLink>
-    </div>
+    </h1>
   );
 }
-
-export default routes;
