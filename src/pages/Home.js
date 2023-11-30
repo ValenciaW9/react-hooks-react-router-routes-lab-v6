@@ -1,23 +1,21 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import MovieCard from '../components/MovieCard';
 
-function Home() {
-  return (
-    <>
-      <header>
-        <h1>
-          <NavLink exact to="/">Home Page</NavLink>
-          <NavLink to="/directors">Directors</NavLink>
-          <NavLink to="/actors">Actors</NavLink>
-          <NavLink to="/moviecard">MovieCard</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-        </h1>
-      </header>
-      <main>
-        {/* Home info here! */}
-      </main>
-    </>
+const Home = () => {
+  const movies = [
+    { id: 1, title: 'Movie 1' },
+    { id: 2, title: 'Movie 2' },
+    { id: 3, title: 'Movie 3' },
+  ];
+
+ return (
+    <div>
+      <h1> Page</h1>
+      {movies.map((movie) => (
+        <MovieCard key={movie.id} movie={movie} />
+      ))}
+    </div>
   );
-}
+};
 
 export default Home;

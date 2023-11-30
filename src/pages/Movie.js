@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-function Movie() {
+const Movie = () => {
+  const { id } = useParams();
+  const [movie] = useState(null);
+
+  useEffect(() => {
+    // Fetch movie data based on id
+    // Set the movie state
+  }, [id]);
+
+  if (!movie) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <>
-      <header>
-        <h1>Movie Title</h1>
-        <span exact to="/">Home Page</span>
-        <span to="/directors">genre</span>
-        <span to="/actors">genre</span>
-        <span to="/movie">genre</span>
-        <span to="/contact">Contact</span>
-      </header>
-      <main>
-        {/* Movie info here! */}
-      </main>
-    </>
+    <div>
+      <h1>{movie.title}</h1>
+      <p>Time: {movie.time}</p>
+      <div>
+        Genres:
+        {movie.genres.map((genre) => (
+          <span key={genre}>{genre}</span>
+        ))}
+      </div>
+    </div>
   );
-}
+};
 
 export default Movie;

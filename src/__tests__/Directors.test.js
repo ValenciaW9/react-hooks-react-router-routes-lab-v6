@@ -1,23 +1,71 @@
 import "@testing-library/jest-dom";
-import { createMemoryHistory } from "history";
-import React from 'react';
-import { MemoryRouter as RouterProvider } from "react-router-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
-import NavBar from "../components/NavBar";
+import { RouterProvider, createMemoryRouter} from "react-router-dom"
+import { render, screen } from "@testing-library/react";
+import routes from "../routes";
 
-test("renders the Directors <NavLink>", () => {
+const directors = [
+  {
+    name: "Scott Derrickson",
+    movies: ["Doctor Strange", "Sinister", "The Exorcism of Emily Rose"],
+  },
+  {
+    name: "Mike Mitchell",
+    movies: ["Trolls", "Alvin and the Chipmunks: Chipwrecked", "Sky High"],
+  },
+  {
+    name: "Edward Zwick",
+    movies: ["Jack Reacher: Never Go Back", "Blood Diamond", "The Siege"],
+  },
+];
+
+const router = createMemoryRouter(routes, {
+  initialEntries: [`/directors`],
+  initialIndex: 0
+})
+
+test("renders without any errors", () => {
+  const errorSpy = jest.spyOn(global.console, "error");
+
+  render(<RouterProvider router={router}/>);
+
+  expect(errorSpy).not.toHaveBeenCalled();
+
+  errorSpy.mockRestore();
+});
+
+test("renders 'Directors Page' inside of a <h1 />", () => {
+  render(<RouterProvider router={router}/>);
+  const h1 = screen.queryByText(/Directors Page/);
+  expect(h1).toBeInTheDocument();
+  expect(h1.tagName).toBe("H1");
+});
+
+test("renders each director's name", async () => {
+  render(<RouterProvider router={router}/>);
+  for (const director of directors) {
+    expect(
+      await screen.findByText(director.name, { exact: false })
+    ).toBeInTheDocument();
+  }
+});
+
+test("renders a <li /> for each movie", async () => {
+  render(<RouterProvider router={router}/>);
+  for (const director of directors) {
+    for (const movie of director.movies) {
+      const li = await screen.findByText(movie, { exact: false });
+      expect(li).toBeInTheDocument();
+      expect(li.tagName).toBe("LI");
+    }
+  }
+});
+
+test("renders the <NavBar /> component", () => {
+  const router = createMemoryRouter(routes, {
+    initialEntries: ['/directors']
+  })
   render(
-    React.createElement(RouterProvider, { history: createMemoryHistory() },
-      React.createElement(NavBar)
-    )
+      <RouterProvider router={router}/>
   );
-
-  const directorsLink = screen.getByText(/Directors/);
-  expect(directorsLink).toBeInTheDocument();
-  expect(directorsLink.tagName).toBe("A");
-  expect(directorsLink.getAttribute("href")).toBe("/directors");
-
-  fireEvent.click(directorsLink, { button: 0 });
-
-  expect(directorsLink).toHaveClass("active");
+  expect(document.querySelector(".navbar")).toBeInTheDocument();
 });
